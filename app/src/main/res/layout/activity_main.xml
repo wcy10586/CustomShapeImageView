@@ -27,6 +27,18 @@
         app:leftTopRadius="30dp"
         app:onlyDrawBorder="false"
         app:rightBottomRadius="15dp"
+        app:shape="rectangle" />
+
+    <com.wcy.shapeimage.shapeimageview.CustomShapeImageView
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/a"
+        app:imageBorderWidth="3dp"
+        app:borderColor="@color/colorAccent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="30dp"
+        app:onlyDrawBorder="false"
         app:roundRadius="5dp"
         app:shape="rectangle" />
 
