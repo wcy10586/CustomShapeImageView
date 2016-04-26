@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.wcy.shapeimage.shapeimageview.CustomShapeImageView
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/a"
+        app:borderColor="@color/colorAccent"
+        app:imageBorderWidth="2dp"
+        app:onlyDrawBorder="false"
+        app:shape="circle" />
+
+    <com.wcy.shapeimage.shapeimageview.CustomShapeImageView
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/a"
+        app:borderColor="@color/colorAccent"
+        app:imageBorderWidth="2dp"
+        app:leftBottomRadius="10dp"
+        app:leftTopRadius="30dp"
+        app:onlyDrawBorder="false"
+        app:rightBottomRadius="15dp"
+        app:roundRadius="5dp"
+        app:shape="rectangle" />
+
+</RelativeLayout>
