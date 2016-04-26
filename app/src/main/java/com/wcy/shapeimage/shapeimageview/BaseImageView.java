@@ -172,8 +172,6 @@ public abstract class BaseImageView extends ImageView {
         }
     }
 
-    public abstract Bitmap getBitmap();
-
     public void setBorderColor(int color) {
         borderColor = color;
     }

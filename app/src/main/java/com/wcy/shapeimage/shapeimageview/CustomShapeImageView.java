@@ -2,7 +2,6 @@ package com.wcy.shapeimage.shapeimageview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
@@ -43,17 +42,5 @@ public class CustomShapeImageView extends BaseImageView {
         a.recycle();
     }
 
-    @Override
-    public Bitmap getBitmap() {
-        switch (mShape) {
-            case Shape.CIRCLE:
-                return ShapeHelper.getCircle(getWidth(), getHeight());
-            case Shape.RECTANGLE:
-                return ShapeHelper.getRoundRectangle(getWidth(), getHeight(), leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius);
-//            case Shape.SVG:
-//                return SvgImageView.getBitmap(mContext, getWidth(), getHeight(), mSvgRawResourceId);
-        }
-        return null;
-    }
 
 }
