@@ -1,5 +1,7 @@
 # CustomShapeImageView
-![image](https://github.com/wcy10586/CustomShapeImageView/tree/master/img/a.jpg)
+
+![image](https://github.com/wcy10586/CustomShapeImageView/blob/master/img/a.png)
+
 ##v1.1
    加入椭圆支持
 ##v1.0
