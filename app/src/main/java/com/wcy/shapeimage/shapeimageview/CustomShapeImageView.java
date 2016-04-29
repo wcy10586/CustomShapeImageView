@@ -9,7 +9,7 @@ import com.wcy.shapeimage.R;
 
 
 /**
- * Created by Mostafa Gazar on 11/2/13.
+ * Created by wcy .
  */
 public class CustomShapeImageView extends BaseImageView {
 

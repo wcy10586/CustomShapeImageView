@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by Mostafa Gazar on 11/2/13.
+ * Created by wcy.
  */
 public abstract class BaseImageView extends ImageView {
     private static final String TAG = BaseImageView.class.getSimpleName();
@@ -73,12 +73,14 @@ public abstract class BaseImageView extends ImageView {
             super.onDraw(canvas);
         } else {
             Bitmap bmp = drawableToBitmap(getDrawable());
-            float bmpW = bmp.getWidth();
-            float bmpH = bmp.getHeight();
-            float h = getHeight();
-            float w = getWidth();
-            drawShader(canvas, bmp, bmpW, bmpH, w, h);
-            drawShape(canvas, w, h);
+            if (bmp != null) {
+                float bmpW = bmp.getWidth();
+                float bmpH = bmp.getHeight();
+                float h = getHeight();
+                float w = getWidth();
+                drawShader(canvas, bmp, bmpW, bmpH, w, h);
+                drawShape(canvas, w, h);
+            }
         }
         drawBorder(canvas);
     }
@@ -118,10 +120,20 @@ public abstract class BaseImageView extends ImageView {
                 path.addRoundRect(rectF, rad, Path.Direction.CW);
                 canvas.drawPath(path, shaderPaint);
                 break;
+            case Shape.ARC:
+                rectF.left = borderWidth / 2;
+                rectF.top = borderWidth / 2;
+                rectF.right = w - borderWidth / 2;
+                rectF.bottom = h - borderWidth / 2;
+                canvas.drawArc(rectF, 0, 360, true, shaderPaint);
+                break;
         }
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
         }
@@ -140,9 +152,6 @@ public abstract class BaseImageView extends ImageView {
 
 
     private void drawBorder(Canvas canvas) {
-        if (mShape != Shape.CIRCLE && mShape != Shape.RECTANGLE) {
-            return;
-        }
         if (borderWidth == 0 || borderColor == Color.TRANSPARENT) {
             return;
         }
@@ -169,6 +178,14 @@ public abstract class BaseImageView extends ImageView {
                 path.addRoundRect(rectF, rad, Path.Direction.CW);
                 canvas.drawPath(path, mPaint);
                 return;
+            case Shape.ARC:
+                RectF rectF2 = new RectF();
+                rectF2.left = borderWidth / 2;
+                rectF2.top = borderWidth / 2;
+                rectF2.right = getWidth() - borderWidth / 2;
+                rectF2.bottom = getHeight() - borderWidth / 2;
+                canvas.drawArc(rectF2, 0, 360, false, mPaint);
+                break;
         }
     }
 
@@ -183,6 +200,7 @@ public abstract class BaseImageView extends ImageView {
     public static class Shape {
         public static final int CIRCLE = 1;
         public static final int RECTANGLE = 2;
+        public static final int ARC = 3;
     }
 
 
