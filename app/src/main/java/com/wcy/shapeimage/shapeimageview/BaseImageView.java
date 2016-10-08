@@ -88,11 +88,55 @@ public abstract class BaseImageView extends ImageView {
     private void drawShader(Canvas canvas, Bitmap bmp, float bmpW, float bmpH, float w, float h) {
         shader = new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         Matrix matrix = new Matrix();
-        matrix.setScale(w / bmpW, h / bmpH);
+        setMatrix(matrix, bmpW, bmpH, w, h);
         shader.setLocalMatrix(matrix);
         shaderPaint.setColor(Color.TRANSPARENT);
         shaderPaint.setShader(shader);
         canvas.drawPaint(shaderPaint);
+    }
+
+      public void setMatrix(Matrix matrix, float bmpW, float bmpH, float w, float h) {
+        ScaleType scaleType = getScaleType();
+        if (scaleType == ScaleType.CENTER) {
+            float dx = (w - bmpW) / 2;
+            float dy = (h - bmpH) / 2;
+            matrix.setTranslate(dx, dy);
+        } else if (scaleType == ScaleType.CENTER_CROP) {
+            float ratio = Math.max(w / bmpW, h / bmpH);
+            float useWidth = bmpW * ratio;
+            float useHeight = bmpH * ratio;
+            matrix.setTranslate((w - useWidth) / 2, (h - useHeight) / 2);
+            matrix.preScale(ratio, ratio);
+        } else if (scaleType == ScaleType.CENTER_INSIDE) {
+            float ratio = Math.min(w / bmpW, h / bmpH);
+            if (ratio > 1) {
+                ratio = 1;
+            }
+            float useWidth = bmpW * ratio;
+            float useHeight = bmpH * ratio;
+            matrix.setTranslate((w - useWidth) / 2, (h - useHeight) / 2);
+            matrix.preScale(ratio, ratio);
+        } else if (scaleType == ScaleType.FIT_CENTER) {
+            float ratio = Math.min(w / bmpW, h / bmpH);
+            float useWidth = bmpW * ratio;
+            matrix.setTranslate((w - useWidth) / 2, 0);
+            matrix.preScale(ratio, ratio);
+        } else if (scaleType == ScaleType.FIT_END) {
+            float ratio = Math.min(w / bmpW, h / bmpH);
+            float useWidth = bmpW * ratio;
+            matrix.setTranslate(w - useWidth, 0);
+            matrix.preScale(ratio, ratio);
+
+        } else if (scaleType == ScaleType.FIT_START) {
+            float ratio = Math.min(w / bmpW, h / bmpH);
+            matrix.setScale(ratio, ratio);
+        } else if (scaleType == ScaleType.FIT_XY) {
+            float wRatio = w / bmpW;
+            float hRatio = h / bmpH;
+            matrix.setScale(wRatio, hRatio);
+        } else if (scaleType == ScaleType.MATRIX) {
+            //do nothing
+        }
     }
 
 
